@@ -1,0 +1,163 @@
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+
+public class Abcd extends Frame implements ActionListener{
+
+
+    Button b1,b2;
+    Abcd(){
+        b1=new Button("Compare");
+        b2=new Button("merge");
+        
+        JLabel label = new JLabel();
+        label.setText("Choose Files to compare or merge");
+        label.setFont(new Font("PLAIN",Font.BOLD,25));
+        label.setOpaque(true);
+ 
+        JLabel label2 = new JLabel();
+        ImageIcon img = new ImageIcon("C:\\Users\\HP\\eclipse-workspace\\SwingProject\\src\\icon2.gif");
+        label2.setIcon(img);
+        
+        b1.setBounds(50,200,100,50);
+        b2.setBounds(150,200,100,50);
+
+        b1.addActionListener(this);
+        b2.addActionListener(this);
+
+        
+        add(label);
+        
+        add(b1);
+         add(b2);
+
+         add(label2);
+         setTitle("File comparing and merging model by-Aryan Agarwal");
+         setSize(500,400);
+         setLayout(new FlowLayout());
+         setVisible(true);
+         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    }
+
+    private void setDefaultCloseOperation(int exitOnClose) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@SuppressWarnings("resource")
+	public void actionPerformed(ActionEvent e){
+        if(e.getSource()==b1){
+            
+                File file1 = new File("D:\\miniproject\\src\\data1.txt");
+					File file2 = new File("D:\\miniproject\\src\\data2.txt");
+					FileReader r1 = null;
+                    try {
+						r1 = new FileReader(file1);
+					} catch (FileNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					FileReader r2 = null;
+					try {
+						r2 = new FileReader(file2);
+					} catch (FileNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					BufferedReader reader1 = new BufferedReader(r1);
+					BufferedReader reader2 = new BufferedReader(r2);
+					String str1 = null;
+					try {
+						str1 = reader1.readLine();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					String str2 = null;
+					try {
+						str2 = reader2.readLine();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					boolean areequal = false;
+					int lineno = 1;
+					while (str1 != null && str2 != null) {
+						if (str1.equalsIgnoreCase(str2)) {
+							areequal = true;
+							lineno++;
+						} else {
+							areequal = false;
+							break;
+						}
+						try {
+							str1 = reader1.readLine();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						try {
+							str2 = reader2.readLine();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+
+					if (areequal) {
+						System.out.println("Files that you have chosen are same");
+					} else {
+						System.out.println("Files are not same at line number " + lineno);
+					}
+            
+        }
+           if(e.getSource()==b2){
+            try{
+            PrintWriter pw = new PrintWriter("D:\\miniproject\\src\\data3.txt");
+            BufferedReader br = new BufferedReader(new FileReader("D:\\miniproject\\src\\data1.txt"));
+            String line = br.readLine();
+
+            while (line != null)
+        {
+            pw.println(line);
+            line = br.readLine();
+        }
+          
+        br = new BufferedReader(new FileReader("D:\\miniproject\\src\\data2.txt"));
+          
+        line = br.readLine();
+
+        while(line != null)
+        {
+            pw.println(line);
+            line = br.readLine();
+        }
+        
+        pw.flush();
+        
+        // closing resources
+        br.close();
+        pw.close();
+    }
+    catch(IOException ex){System.out.println(ex);}
+}
+         
+    }
+
+    public static void main(String[] args) {
+        new Abcd();
+    }
+}
