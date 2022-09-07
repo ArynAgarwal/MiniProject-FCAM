@@ -13,9 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-
 public class Abcd extends Frame implements ActionListener{
-
 
     Button b1,b2;
     Abcd(){
