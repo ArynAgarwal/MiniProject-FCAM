@@ -132,7 +132,6 @@ public class Abcd extends Frame implements ActionListener{
             pw.println(line);
             line = br.readLine();
         }
-          
         br = new BufferedReader(new FileReader("D:\\miniproject\\src\\data2.txt"));
           
         line = br.readLine();
